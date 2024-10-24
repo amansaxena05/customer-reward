@@ -2,6 +2,11 @@ package com.assignment.customerreward.dto;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * DTO to send in response when Exception occurs
+ * @author aman.saxena05
+ *
+ */
 public class ApiResponse {
 
 	private String message;

@@ -12,6 +12,11 @@ import com.assignment.customerreward.entity.CustomerEntity;
 import com.assignment.customerreward.exception.CustomerNotFoundException;
 import com.assignment.customerreward.repository.CustomerRepository;
 
+/**
+ * customer service
+ * @author aman.saxena05
+ *
+ */
 @Service
 public class CustomerService {
 
@@ -24,6 +29,11 @@ public class CustomerService {
 		this.repository = customerRepository;
 	}
 	
+	/**
+	 * service method to create new customer in DB
+	 * @param request
+	 * @return
+	 */
 	public String newCustomer(CustomerDto request) {
 		String id = UUID.randomUUID().toString();
 		request.setId(id);
@@ -32,6 +42,11 @@ public class CustomerService {
 		return id;
 	}
 	
+	/**
+	 * service method to get customer details by Id
+	 * @param customerId
+	 * @return
+	 */
 	public CustomerDto getCustomerById(String customerId) {
 		logger.info("getting customer for id = " + customerId);
 		CustomerEntity entity = repository.findById(customerId)
@@ -39,6 +54,11 @@ public class CustomerService {
 		return convertEntityToDto(entity);
 	}
 	
+	/**
+	 * converting customer entity to dto
+	 * @param entity
+	 * @return
+	 */
 	public CustomerDto convertEntityToDto(CustomerEntity entity) {
 		CustomerDto dto = new CustomerDto();
 		dto.setEmail(entity.getEmail());
@@ -48,6 +68,11 @@ public class CustomerService {
 		return dto;
 	}
 	
+	/**
+	 * converting customer dto to entity
+	 * @param dto
+	 * @return
+	 */
 	public CustomerEntity getEntityFromDto(CustomerDto dto) {
 		CustomerEntity entity = new CustomerEntity();
 		entity.setCustomerId(dto.getId());

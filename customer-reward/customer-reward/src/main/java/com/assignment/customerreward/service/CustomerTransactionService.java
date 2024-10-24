@@ -10,8 +10,14 @@ import org.springframework.stereotype.Service;
 import com.assignment.customerreward.dto.CustomerTransactionDto;
 import com.assignment.customerreward.dto.RewardPointsDto;
 import com.assignment.customerreward.entity.CustomerTransaction;
+import com.assignment.customerreward.exception.CustomerTransactionNotFoundException;
 import com.assignment.customerreward.repository.CustomerTransactionRepository;
 
+/**
+ * Customer Transaction Service
+ * @author aman.saxena05
+ *
+ */
 @Service
 public class CustomerTransactionService {
 
@@ -33,6 +39,11 @@ public class CustomerTransactionService {
 		this.rewardPointService = rewardPointService;
 	}
 	
+	/**
+	 * service method to create new transaction
+	 * @param request
+	 * @return
+	 */
 	public String newTransaction (CustomerTransactionDto request) {
 		String id = UUID.randomUUID().toString();
 		request.setTransactionId(id);
@@ -48,6 +59,37 @@ public class CustomerTransactionService {
 		return id;
 	}
 	
+	/**
+	 * servic method to get transaction by transaction Id
+	 * @param transactionId
+	 * @return
+	 */
+	public CustomerTransactionDto getTransactionById(String transactionId) {
+		CustomerTransaction entity = repository.findById(transactionId)
+				.orElseThrow(() -> new CustomerTransactionNotFoundException("Transaction id - " + transactionId + " not found"));
+		return getDtoFromEntity(entity);
+	}
+	
+	/**
+	 * method to get customer transaction dto from entity
+	 * @param entity
+	 * @return
+	 */
+	private CustomerTransactionDto getDtoFromEntity(CustomerTransaction entity) {
+		CustomerTransactionDto dto = new CustomerTransactionDto();
+		dto.setAmount(entity.getAmount());
+		dto.setCustomerId(entity.getCustomer().getCustomerId());
+		dto.setDate(entity.getDate());
+		dto.setSpentDetails(entity.getSpentDetails());
+		dto.setTransactionId(entity.getTransactionId());
+		return dto;
+	}
+	
+	/**
+	 * method to get customer transaction entity from dto
+	 * @param dto
+	 * @return
+	 */
 	private CustomerTransaction getEntityFromDto(CustomerTransactionDto dto) {
 		CustomerTransaction entity = new CustomerTransaction();
 		entity.setAmount(dto.getAmount());
@@ -58,6 +100,11 @@ public class CustomerTransactionService {
 		return entity;
 	}
 	
+	/**
+	 * method to calculate reward points from transaction amount
+	 * @param request
+	 * @return
+	 */
 	private int calculateRewardPoints(CustomerTransactionDto request) {
 		if (request.getAmount() < 50) {
 			return 0;

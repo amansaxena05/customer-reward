@@ -2,6 +2,13 @@ package com.assignment.customerreward.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.NotNull;
+
+/**
+ * CustomerTransactionDto to be accepted and send in request and response
+ * @author aman.saxena05
+ *
+ */
 public class CustomerTransactionDto {
 
 	private String transactionId;
@@ -12,6 +19,7 @@ public class CustomerTransactionDto {
 	
 	private String spentDetails;
 	
+	@NotNull(message = "customerId should be present in transaction")
 	private String customerId;
 
 	public String getTransactionId() {

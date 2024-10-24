@@ -1,5 +1,10 @@
 package com.assignment.customerreward.exception;
 
+/**
+ * CustomerNotFoundException
+ * @author aman.saxena05
+ *
+ */
 public class CustomerNotFoundException extends RuntimeException {
 
 	/**

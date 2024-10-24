@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.assignment.customerreward.entity.CustomerTransaction;
 
+/**
+ * CustomerTransactionRepository
+ * @author aman.saxena05
+ *
+ */
 @Repository
 public interface CustomerTransactionRepository extends JpaRepository<CustomerTransaction, String> {
 

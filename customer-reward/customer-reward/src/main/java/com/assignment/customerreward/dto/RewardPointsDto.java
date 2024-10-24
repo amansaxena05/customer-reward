@@ -1,5 +1,10 @@
 package com.assignment.customerreward.dto;
 
+/**
+ * RewardPointsDto to be accepted and send in request and response
+ * @author aman.saxena05
+ *
+ */
 public class RewardPointsDto {
 
 	private String rewardId;
@@ -11,7 +16,7 @@ public class RewardPointsDto {
 	private int points;
 	
 	private String customerId;
-
+	
 	public String getRewardId() {
 		return rewardId;
 	}

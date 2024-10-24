@@ -10,27 +10,39 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.assignment.customerreward.dto.CustomerDto;
 import com.assignment.customerreward.dto.RewardPointsDto;
 import com.assignment.customerreward.service.CustomerService;
 import com.assignment.customerreward.service.RewardPointService;
 
+/**
+ * Customer Reward Points controller for rest endpoints for rewards
+ * @author aman.saxena05
+ *
+ */
 @RestController
 @RequestMapping(value = "/rewardPoints")
 public class RewardPointsController {
 	
+	/**
+	 * reward service
+	 */
 	private RewardPointService rewardPointService;
 	
-	private CustomerService customerService;
 	
 	@Autowired
-	public RewardPointsController (RewardPointService rewardPoint, 
-			CustomerService customer) {
+	public RewardPointsController (RewardPointService rewardPoint) {
 		this.rewardPointService = rewardPoint;
-		this.customerService = customer;
 	}
 
+	/**
+	 * get reward details by customer id
+	 * @param customerId
+	 * @return
+	 */
 	@GetMapping(value = "/getByCustomerId/{customerId}")
-	public ResponseEntity<List<RewardPointsDto>> getRewardPointsByCustomerId(@PathVariable String customerId) {
+	public ResponseEntity<CustomerDto> getRewardPointsByCustomerId(@PathVariable String customerId) {
 		return ResponseEntity.status(HttpStatus.OK).body(rewardPointService.getRewardPointByCustomerId(customerId));
 	}
+	
 }
